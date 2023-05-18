@@ -1,5 +1,5 @@
 from src.logger import Logger
-from flask import Flask, make_response
+from flask import Flask, make_response, request
 app = Flask(__name__)
 
 logger = Logger()
@@ -11,5 +11,6 @@ def home():
 @app.route("/status")
 def status():
     response = make_response('OK', 200)
-    logger.log("/status endpoint called")
+    user_agent = request.headers.get('User-Agent')
+    logger.log(f"Request: GET /status - User-Agent: {user_agent} - Response: 200")
     return response

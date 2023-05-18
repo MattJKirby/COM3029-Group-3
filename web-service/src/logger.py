@@ -18,7 +18,7 @@ class Logger:
       file.write(f"{self.timestamp} - {item} \n")
 
   def _init(self):
-    self._log("Service started")
+    self._log("Web Service started")
 
   def log(self, item):
     self._log(item)

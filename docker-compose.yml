@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./web-service:/app/"
+      - "./models:/app/models/"
     ports:
       - "5000"
 

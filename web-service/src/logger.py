@@ -12,10 +12,9 @@ class Logger:
     dateTime = datetime.fromtimestamp(timestamp)
     return dateTime.strftime("%Y-%m-%d %H:%M:%S")
 
-  
   def _log(self, item):
     with open(self.logFilePath, 'a') as file:
-      file.write(f"{self.timestamp} - {item} \n")
+      file.write(f"{self._parseTimestamp(time.time())} - {item} \n")
 
   def _init(self):
     self._log("Web Service started")

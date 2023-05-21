@@ -2,7 +2,7 @@ name: Docker Compose Actions Workflow
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   REGISTRY: docker.pkg.github.com

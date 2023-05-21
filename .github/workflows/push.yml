@@ -33,7 +33,7 @@ jobs:
         with:
           command: cp
           source: ./model-placeholder.zip
-          destination: https://com3029.s3.eu-west-2.amazonaws.com/model-placehoder.zip
+          destination: s3://com3029.s3.eu-west-2.amazonaws.com/model-placehoder.zip
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-2

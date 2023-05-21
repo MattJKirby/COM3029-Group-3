@@ -32,8 +32,8 @@ jobs:
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
-          source: model-placeholder.zip
-          destination: s3://com3029.s3.eu-west-2.amazonaws.com/model-placehoder.zip
+          source: s3://com3029.s3.eu-west-2.amazonaws.com/model-placehoder.zip
+          destination: ./data/
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-2

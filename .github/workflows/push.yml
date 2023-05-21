@@ -40,6 +40,14 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
+          
+      - name: Log in to GitHub Packages
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Tag Docker image
+        run: docker tag ${{ IMAGE_NAME }} docker.pkg.github.com/${{ github.repository }}/my-image:latest
+
+      - name: Push Docker image to GitHub Packages
+        run: docker push docker.pkg.github.com/${{ github.repository }}/my-image:latest

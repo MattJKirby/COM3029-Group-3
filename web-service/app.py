@@ -10,7 +10,7 @@ model = Model(os.getenv('MODEL_PATH'))
 
 @app.route("/", methods = ['GET'])
 def home():
-    return "To predict, provide an input! \n For example --> http://localhost:8080/web-service/predict?input=help"
+    return "To predict, provide an input! \n For example --> http://localhost:8080/api/web-service/predict?input=help"
 
 @app.route("/status", methods = ['GET'])
 def status():

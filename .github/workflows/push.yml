@@ -20,14 +20,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
-          
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
-          
+
       - name: Download model from S3
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
@@ -42,12 +42,12 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
-          
+
       - name: Log in to GitHub Packages
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Tag Docker image
-        run: docker tag ${{ IMAGE_NAME }} docker.pkg.github.com/${{ github.repository }}/my-image:latest
+        run: docker tag ${{ IMAGE_NAME }} docker.pkg.github.com/${{ github.repository }}/webapp:latest
 
       - name: Push Docker image to GitHub Packages
-        run: docker push docker.pkg.github.com/${{ github.repository }}/my-image:latest
+        run: docker push docker.pkg.github.com/${{ github.repository }}/webapp:latest

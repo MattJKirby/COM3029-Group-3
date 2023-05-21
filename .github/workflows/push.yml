@@ -5,7 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
-        run: docker-compose up -d
-      - name: Test
-        run: docker run --network container:api-gateway appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Build and run the stack
+        run: |
+          docker-compose -f docker-compose.yml up -d

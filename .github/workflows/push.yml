@@ -49,5 +49,9 @@ jobs:
       - name: Tag Docker image
         run: docker tag webapp docker.pkg.github.com/${{ github.repository }}/webapp:latest
 
+      - name: Convert repository name to lowercase
+        run: |
+          echo ::set-env name=REPO_NAME::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+
       - name: Push Docker image to GitHub Packages
-        run: docker push docker.pkg.github.com/${{ github.repository }}/webapp:latest
+        run: docker push docker.pkg.github.com/"${{ env.REPO_NAME }}"/webapp:latest

@@ -42,16 +42,12 @@ jobs:
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
           
-      - name: Log in to GitHub Packages
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-        
-      - name: Push Docker image to GitHub Packages
-        run: |
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          [ "$VERSION" == "main" ] && VERSION=latest
-          IMAGE_NAME=${{ env.IMAGE_NAME }}
-          DOCKER_TAG=$IMAGE_NAME:$VERSION
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-          docker tag $IMAGE_NAME $DOCKER_TAG
-          docker push $DOCKER_TAG
+      - name: publish
+        uses: pennsignals/publish_docker-compose@v0.1.0
+        with:
+          version: '1.0' # optional
+          docker_compose: 'docker-compose.yml' # required
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          
+
+

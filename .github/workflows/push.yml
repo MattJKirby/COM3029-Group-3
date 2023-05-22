@@ -37,11 +37,10 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-2
           
-      - name: Build Compose Images
-        run: docker compose -f docker-compose.yaml build
-
-      - name: Push image to Container Registry
-        run: docker compose -f docker-compose.yaml push
+      - name: Build and push Docker image
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
           
 
 

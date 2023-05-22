@@ -37,12 +37,11 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-2
           
-      - name: publish
-        uses: pennsignals/publish_docker-compose@v0.1.0
-        with:
-          version: '1.0' # optional
-          docker_compose: 'docker-compose.yml' # required
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Build Compose Images
+        run: docker compose -f compose.yaml build
+
+      - name: Push image to Container Registry
+        run: docker compose -f compose.yaml push
           
 
 

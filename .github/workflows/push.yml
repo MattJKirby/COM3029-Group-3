@@ -6,7 +6,7 @@ on:
       - master
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: mattjkirby/com2029-group-3
 
 jobs:
   test:

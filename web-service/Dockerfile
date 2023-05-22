@@ -11,6 +11,8 @@ RUN pip install --no-cache-dir tensorflow==2.12.0
 
 COPY . .
 
+RUN unzip placeholder_model.zip
+
 EXPOSE 5000
 
 ENV LISTEN_PORT=5000

@@ -21,7 +21,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.ACCESS_KEY }}
+          password: ${{ secrets.GITHUB_ACCESS }}
 
       - name: Set up Docker Compose
         run: |

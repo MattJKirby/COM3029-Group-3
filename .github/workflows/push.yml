@@ -6,7 +6,7 @@ on:
       - master
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: mattjkirby/mattjkirby/com2029-group-3
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   test:
@@ -15,6 +15,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Docker Compose
         run: |
@@ -33,15 +40,24 @@ jobs:
         with:
           command: cp
           source: s3://com3029/model-placehoder.zip
-          destination: ./data/
+          destination: ./web-service/
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-2
-          
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
       - name: Build and push Docker image
-        run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push ghcr.io/NAMESPACE/IMAGE_NAME:latest
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           
 
 

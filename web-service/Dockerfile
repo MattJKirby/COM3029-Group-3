@@ -4,6 +4,7 @@ FROM python:3.10
 WORKDIR /app
 COPY ./requirements.txt /app
 
+
 ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
 
 RUN pip install -r requirements.txt
@@ -11,7 +12,7 @@ RUN pip install --no-cache-dir tensorflow==2.12.0
 
 COPY . .
 
-RUN unzip src/model-placehoder.zip
+RUN unzip models/model-placehoder.zip
 
 EXPOSE 5000
 

@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir tensorflow==2.12.0
 
 COPY . .
 
-RUN unzip model-placeholder.zip -d ./models/best_model/
+RUN unzip web-service/model-placehoder.zip -d ./models/best_model/
 
 EXPOSE 5000
 

@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir tensorflow==2.12.0
 
 COPY . .
 
-RUN unzip models/model-placehoder.zip
+RUN unzip src/model-placehoder.zip
 
 EXPOSE 5000
 
